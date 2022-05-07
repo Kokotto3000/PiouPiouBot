@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import APICall from './utils/APICall';
 
 function App() {
+
+  const [question, setQuestion]= useState("");
+  const [response, setResponse]= useState("");
+
+  async function getResponse(){
+    const response= await APICall(question);
+    setResponse(response);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>PiouPiou Bot</h1>
+      <h2>Your question :</h2>
+      <input name="question" onChange={e=> setQuestion(e.target.value)}></input>
+      <button type="submit" onClick={getResponse}>Envoyer</button>
+      <h2>PiouPiou response :</h2>
+      <p>{response}</p>
     </div>
   );
 }
